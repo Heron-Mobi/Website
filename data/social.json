@@ -1,0 +1,12 @@
+[
+	{
+		"name": "Codeberg",
+		"link": "https://codeberg.org/heron",
+		"image": "images/social/codeberg.svg"
+	},
+	{
+		"name": "Twitter",
+		"link": "https://twitter.com/HeronMobi",
+		"image": "images/social/twitter.svg"
+	}
+]
