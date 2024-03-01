@@ -172,5 +172,14 @@ Deploys an S3 bucket and Cloudfront distribution for the dashboard.
 make buildsignalers
 ```
 
+#### Deploy the Dashboard
+
+Exit current directory
+
+
+```zsh
+cd ..
+```
+
 
 Move on to deploying the [Dashboard](/docs/dashboard/).
