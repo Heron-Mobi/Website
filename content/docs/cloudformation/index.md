@@ -12,7 +12,6 @@ Everything can be rewritten in terraform but will require more technical knowled
 
 - [Make](https://www.gnu.org/software/make/)
 - [Git](https://git-scm.com/)
-- [jq](https://jqlang.github.io/jq/)
 - [AWS cli](https://aws.amazon.com/cli/)
 - [An AWS account](https://aws.amazon.com/resources/create-account/)
 - A Domain Name
@@ -160,16 +159,18 @@ make createsignal
 Deploys SQS queues and lambda listeners that will run the signal, currently email and Twitter.
 
 ```zsh
-make buildsignalers
+make createsignalers
 ```
 
+This will create an email address in SES for sending emails.  Please check that email address inbox and
+confirm SES can use that email to send emails.
 
 #### Dashboard
 
 Deploys an S3 bucket and Cloudfront distribution for the dashboard.
 
 ```zsh
-make buildsignalers
+make createdashboard
 ```
 
 #### Deploy the Dashboard

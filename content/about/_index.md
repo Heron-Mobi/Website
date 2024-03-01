@@ -3,6 +3,26 @@ title: 'About Heron'
 weight: 1
 ---
 
+## What Heron Does
+
+Heron allows anyone to deploy their own live streaming service and stream directly from their own Android phone.
+
+Through the push of a button, the camera starts and creates an HLS stream and immediately uploads it to S3, that 
+is fronted by Cloudfront. This results in a live video stream that can have anywhere from 30 second to a few minute delay.
+This greatly depends on the bandwidth available.
+
+This means even if a phone is confiscated, the video will be available and cannot be deleted from the phone.
+
+With the use of signals, one can also offload that video to ANY number of locations.
+Download to a secure server, upload to YouTube Live video, replicate to other S3 buckets, the
+video has the potential to ***never*** be contained.
+
+This also leaves the stream in the hands of the people that are hosting it, as long as AWS does not
+shut down the account.
+
+This system also uses off the shelf AWS services, so there is no suspicious footprint. It would be incredibly
+difficult to profile and throttle from ISPs or from AWS themselves.
+
 ## Why Heron
 
 There are many tools and companies that spring up that wish to preserve every individuals right to privacy.
@@ -10,7 +30,6 @@ Such as
 [Signal](https://www.signal.org/),
 [Proton](https://proton.me/),
 [GrapheneOS](https://grapheneos.org/), etc.
-These are designed to protect an individuals privacy.
 
 Heron is an attempt to achieve something different.
 
@@ -31,6 +50,7 @@ Translated, Heron is designed to live broadcast:
 - political oppression
 - war crimes
 - protest suppression
+- reporters revealing malfeasance
 - free speech violations
 - police brutality
 - insider trading

@@ -30,6 +30,11 @@ summaryLength = 30
     url = "/docs/"
     weight = 3
 
+[[menu.main]]
+    name = "Roadmap"
+    url = "/roadmap/"
+    weight = 4
+
 
 [params]
   homepage_button_link = '/about'
