@@ -4,8 +4,9 @@ date: 2019-02-11T19:27:37+10:00
 weight: 3
 ---
 
-The infrastructure is deployed with Cloudformation to ease user access to the deployment process.
-Everything can be rewritten in terraform but will require more technical knowledge.
+The dashboard is built on VueJs, much of the base plumbing was stolen from:
+[amazon-cognito-vue-workshop](https://github.com/aws-samples/amazon-cognito-vue-workshop)
+
 
 ###### Requirements
 
@@ -15,9 +16,6 @@ Everything can be rewritten in terraform but will require more technical knowled
 - [AWS cli](https://aws.amazon.com/cli/)
 
 <!--more-->
-
-The dashboard is built on VueJs, much of the base plumbing was stolen from:
-[amazon-cognito-vue-workshop](https://github.com/aws-samples/amazon-cognito-vue-workshop)
 
 The current website supports MFA but the Android application does not.
 

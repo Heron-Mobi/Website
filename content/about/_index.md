@@ -8,7 +8,8 @@ weight: 1
 Heron allows anyone to deploy their own live streaming service and stream directly from their own Android phone.
 
 Through the push of a button, the camera starts and creates an HLS stream and immediately uploads it to S3, that 
-is fronted by Cloudfront. This results in a live video stream that can have anywhere from 30 second to a few minute delay.
+is fronted by Cloudfront. This results in a live video stream that can have anywhere from 30 second
+to a few minutes of delay.
 This greatly depends on the bandwidth available.
 
 This means even if a phone is confiscated, the video will be available and cannot be deleted from the phone.
@@ -18,7 +19,7 @@ Download to a secure server, upload to YouTube Live video, replicate to other S3
 video has the potential to ***never*** be contained.
 
 This also leaves the stream in the hands of the people that are hosting it, as long as AWS does not
-shut down the account.
+shut down the account, even then with the use of signals one could easily push the video anywhere.
 
 This system also uses off the shelf AWS services, so there is no suspicious footprint. It would be incredibly
 difficult to profile and throttle from ISPs or from AWS themselves.
@@ -85,7 +86,7 @@ to delete videos.
 ### iOS App
 
 The platform is open, so submissions and contributions are welcome.
-iOS should support all the functionaility that Android supports.
+iOS should support all the functionality that Android supports.
 
 
 ### Infrastructure
