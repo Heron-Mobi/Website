@@ -7,93 +7,83 @@ Parameters:
   HostedZone:
     Type: String
 Resources:
+
   WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              SSEAlgorithm: AES256
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-  BucketPolicy:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+      CorsConfiguration:
+        CorsRules:
+        - AllowedMethods: 
+            - GET
+            - HEAD
+          AllowedOrigins: 
+            - "*"
+          AllowedHeaders: 
+            - "*"
+  S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
+      Bucket: !Ref WebsiteBucket
       PolicyDocument:
-        Id: !Ref WebsiteBucket
         Version: '2012-10-17'
         Statement:
-          - Sid: CloudfrontGet
-            Action: s3:GetObject
-            Effect: Allow
-            Principal:
-              AWS:
-                !Join
-                  - ""
-                  - - "arn:"
-                    - !Ref AWS::Partition
-                    - ":iam::cloudfront:user/CloudFront Origin Access Identity "
-                    - !Ref OriginAccessIdentity
-            Resource:
-              !Join
-                - ""
-                - - !GetAtt WebsiteBucket.Arn
-                  - /*
-          - Sid: AllowSSLRequestsOnly
-            Action: s3:*
-            Effect: Deny
-            Resource:
-              - !Sub "arn:aws:s3:::${WebsiteBucket}"
-              - !Sub "arn:aws:s3:::${WebsiteBucket}/*"
-            Condition:
-              Bool:
-                aws:SecureTransport: 'false'
-            Principal: "*"
-      Bucket: !Ref WebsiteBucket      
-  OriginAccessIdentity:
+          - Effect: 'Allow'
+            Action: 's3:GetObject'
+            Principal: "*" 
+            Resource: !Sub '${WebsiteBucket.Arn}/*'
+  CloudFrontOAI:
     Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
-    Properties:
+    Properties: 
       CloudFrontOriginAccessIdentityConfig:
-        Comment: HeronWebsite
+        Comment: "CDN S3 Access"
   Distribution:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
         Aliases:
-        - !Join
-            - '.' 
-            - - 'www'
-              - !Ref DomainName
+          - !Join
+              - '.' 
+              - - 'www'
+                - !Ref DomainName
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+        - ErrorCode: 403
+          ResponseCode: 404
+          ResponsePagePath: /404.html
+        - ErrorCode: 404
+          ResponseCode: 404
+          ResponsePagePath: /404.html
+        HttpVersion: http2
         ViewerCertificate:
           AcmCertificateArn: !Ref CertARN
           SslSupportMethod: sni-only
-        Comment: Website
-        DefaultRootObject: index.html
+          MinimumProtocolVersion: TLSv1
+        Enabled: 'true'
         DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: 'true'
+            Cookies:
+              Forward: none
+          TargetOriginId: !Sub "${WebsiteBucket}.s3.amazonaws.com"
           AllowedMethods:
             - GET
             - HEAD
-          CachedMethods:
-            - GET
-            - HEAD
-          Compress: true
-          DefaultTTL: 60
-          ForwardedValues:
-            Headers: []
-            QueryString: true
-          TargetOriginId: websitesite
           ViewerProtocolPolicy: redirect-to-https
-        Enabled: true
-        HttpVersion: http2
-        IPV6Enabled: true
+        DefaultRootObject: index.html
         Origins:
-          - Id: websitesite
-            DomainName: !Sub ${WebsiteBucket}.s3.${AWS::Region}.amazonaws.com
-            S3OriginConfig:
-              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${OriginAccessIdentity.Id}
+        - CustomOriginConfig: 
+            OriginProtocolPolicy: http-only
+            HTTPPort: 80
+            OriginSSLProtocols: 
+              - TLSv1
+              - TLSv1.1
+              - TLSv1.2
+            HTTPSPort: 443
+          DomainName:  !Sub '${WebsiteBucket}.s3-website.${AWS::Region}.amazonaws.com'
+          Id: !Sub "${WebsiteBucket}.s3.amazonaws.com"
         PriceClass: PriceClass_100
   DNSRecordSets:
     Type: 'AWS::Route53::RecordSetGroup'
