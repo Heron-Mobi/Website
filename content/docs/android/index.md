@@ -32,6 +32,10 @@ Android development.
 If you are using an emulated phone the phone needs to be configured for camera pass through
 or emulated phone camera for front and back camera.
 
+You will need to go into the settings to grant permissions.
+
+![android permissions](/images/androidperms.png)
+
 When the app starts you see this screen.
 
 ![android start up](/images/androidstartup.png)

@@ -44,6 +44,7 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
+          - !Ref DomainName
           - !Join
               - '.' 
               - - 'www'
