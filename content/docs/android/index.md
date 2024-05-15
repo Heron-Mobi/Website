@@ -21,7 +21,7 @@ Import the project via Version Control in Android Studio.
 
 Use this url:
 ```
-https://codeberg.org/Heron/AndroidApp.git
+git@github.com:Heron-Mobi/AndroidApp.git
 ```
 
 

@@ -1,8 +1,8 @@
 [
 	{
-		"name": "Codeberg",
-		"link": "https://codeberg.org/heron",
-		"image": "images/social/codeberg.svg"
+		"name": "Github",
+		"link": "https://github.com/Heron-Mobi",
+		"image": "images/social/github.svg"
 	},
 	{
 		"name": "Twitter",
