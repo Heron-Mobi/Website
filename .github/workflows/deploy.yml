@@ -1,0 +1,26 @@
+name: 'Deploy'
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+
+jobs:
+  pushsite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-central-1
+          role-to-assume: ${{ secrets.DEPLOY_ROLE }}
+      - run: wget https://github.com/gohugoio/hugo/releases/download/v0.126.0/hugo_extended_0.126.0_linux-amd64.deb
+        shell: bash
+      - run: dpkg -i hugo_extended_0.126.0_linux-amd64.deb
+        shell: bash
+      - run: make buildandupload
+        shell: bash

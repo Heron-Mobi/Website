@@ -35,7 +35,7 @@ First clone the repository.
 ```zsh
 mkdir -p heron
 cd heron
-git clone git@codeberg.org:Heron/Cloudformation.git
+git clone git@github.com:Heron-Mobi/Cloudformation.git
 cd Cloudformation
 ```
 

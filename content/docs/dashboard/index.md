@@ -24,7 +24,7 @@ The current website supports MFA but the Android application does not.
 First clone the repository.
 
 ```zsh
-git clone git@codeberg.org:Heron/Dashboard.git
+git clone git@github.com:Heron-Mobi/Dashboard.git
 cd Dashboard
 ```
 
